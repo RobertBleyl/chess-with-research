@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124ef3a0c75506044a19a8ec709dc77e, type: 3}
   m_Name: KingMoveSet
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 11400000, guid: 807b1e94b2f1a5c4ca217f1710fefbe8, type: 2}
+  - {fileID: 11400000, guid: 03b35a6407f594b47b98704c1310821d, type: 2}
+  - {fileID: 11400000, guid: bd6097ce3d8ef264181e0996bf5f4293, type: 2}
+  - {fileID: 11400000, guid: a02b53b870bc43b4c90db23f36c40a77, type: 2}

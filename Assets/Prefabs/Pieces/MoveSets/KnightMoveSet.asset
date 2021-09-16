@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124ef3a0c75506044a19a8ec709dc77e, type: 3}
   m_Name: KnightMoveSet
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 11400000, guid: 1e7f2ab33c9b57b40ab86abc9bde1b5b, type: 2}
+  - {fileID: 11400000, guid: de351318e0f40a644aed199c38cd31e4, type: 2}
+  - {fileID: 11400000, guid: 1319a4fc763a5234e96e663767bdfce5, type: 2}
+  - {fileID: 11400000, guid: 7bb11849dce166445ab94affe13c0235, type: 2}
+  - {fileID: 11400000, guid: e96e5968af8346e4a9dac5db6d41c6ad, type: 2}
+  - {fileID: 11400000, guid: 4e662c49c91fde540ab07f7e60920018, type: 2}
+  - {fileID: 11400000, guid: 1b887fbaf9798f44b9e33587c96fb50a, type: 2}
+  - {fileID: 11400000, guid: 7a6e9f22aaead8e41a242e523c158119, type: 2}
