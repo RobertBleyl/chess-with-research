@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124ef3a0c75506044a19a8ec709dc77e, type: 3}
+  m_Name: QueenMoveSet
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: a2927a36e86a00a479c2ab96ae013c8b, type: 2}
+  - {fileID: 11400000, guid: 79064f4a9840b874f82d5e05ca75adcc, type: 2}
+  - {fileID: 11400000, guid: 188612ba4f2cf7e42bd3466f11d18756, type: 2}
+  - {fileID: 11400000, guid: 01bcb11a258894949b10fe4d4bfa74ae, type: 2}
+  - {fileID: 11400000, guid: 6f1b52b2baf1efd459813403b68b86b5, type: 2}
+  - {fileID: 11400000, guid: ceed5e3aaed9c764f9530d7894d6d184, type: 2}
+  - {fileID: 11400000, guid: 19ee23e1dc580e64a8b78aa715692142, type: 2}
+  - {fileID: 11400000, guid: 714997588d3f4c445aecb4561191626d, type: 2}
