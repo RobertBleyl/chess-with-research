@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6535886641172441623}
   - component: {fileID: 6556223119906031496}
   - component: {fileID: 8228942399241627039}
+  - component: {fileID: 2167662887938157289}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickingPieces: {fileID: 8228942399241627039}
+  possibleMovementCalculator: {fileID: 2167662887938157289}
 --- !u!114 &8228942399241627039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,3 +60,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentNearestPiece: {fileID: 0}
+--- !u!114 &2167662887938157289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881710661004799979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321de2fc245c1a04494618e9fdb18031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

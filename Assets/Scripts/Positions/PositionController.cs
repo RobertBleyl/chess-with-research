@@ -3,15 +3,25 @@ using UnityEngine;
 public class PositionController : MonoBehaviour {
 
     [SerializeField]
-    private string positionName;
+    private SpriteRenderer hoverHighlight;
     [SerializeField]
-    private SpriteRenderer highlight;
+    private SpriteRenderer possibleMovementHighlight;
 
-    public void showHighlight () {
-        highlight.gameObject.SetActive (true);
+    public PieceController currentPiece;
+
+    public void showHoverHighlight () {
+        hoverHighlight.gameObject.SetActive (true);
     }
 
-    public void hideHighlight () {
-        highlight.gameObject.SetActive (false);
+    public void hideHoverHighlight () {
+        hoverHighlight.gameObject.SetActive (false);
+    }
+
+    public void showPossibleMovementHighlight () {
+        possibleMovementHighlight.gameObject.SetActive (true);
+    }
+
+    public void hidePossibleMovementHighlight () {
+        possibleMovementHighlight.gameObject.SetActive (false);
     }
 }

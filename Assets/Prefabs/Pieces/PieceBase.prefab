@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2033572336935975376}
   m_Layer: 6
   m_Name: PieceBase
-  m_TagString: Untagged
+  m_TagString: Piece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSet: {fileID: 0}
-  isPicked: 0
+  currentPosition: {fileID: 0}
+  possibleMovementPositions: []
 --- !u!61 &6741791813081765087
 BoxCollider2D:
   m_ObjectHideFlags: 0

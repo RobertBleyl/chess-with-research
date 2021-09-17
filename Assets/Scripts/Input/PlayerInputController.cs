@@ -4,6 +4,8 @@ public class PlayerInputController : MonoBehaviour {
 
     [SerializeField]
     private PickingPieces pickingPieces;
+    [SerializeField]
+    private PossibleMovementCalculator possibleMovementCalculator;
 
     private InputActions controls;
     private PieceController pickedPiece;
@@ -14,23 +16,19 @@ public class PlayerInputController : MonoBehaviour {
         controls.Player.PlacePieceOnBoard.canceled += ctx => releasePiece ();
     }
 
-    private void Start () {
-
-    }
-
     private void pickPiece () {
         if (pickedPiece == null) {
             pickedPiece = pickingPieces.currentNearestPiece;
 
             if (pickedPiece != null) {
-                pickedPiece.isPicked = true;
+                pickedPiece.pickUp ();
             }
         }
     }
 
     private void releasePiece () {
         if (pickedPiece != null) {
-            pickedPiece.isPicked = false;
+            pickedPiece.release ();
             pickedPiece = null;
         }
     }

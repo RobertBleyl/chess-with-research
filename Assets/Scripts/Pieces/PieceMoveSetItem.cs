@@ -4,5 +4,5 @@ using UnityEngine;
 public class PieceMoveSetItem : ScriptableObject {
 
     [SerializeField]
-    public Vector3[] move;
+    public Vector2[] move;
 }

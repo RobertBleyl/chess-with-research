@@ -1,52 +1,79 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PieceController : MonoBehaviour {
 
     [SerializeField]
-    private PieceMoveSet moveSet;
+    public PieceMoveSet moveSet;
 
     private PickingPieces pickingPieces;
-    public bool isPicked;
-    private PositionController lastHightlightedPosition;
+    private bool isPickedUp;
+    private PositionController lastHightlightedHoverPosition;
+
+    public PositionController currentPosition;
+    public List<PositionController> possibleMovementPositions = new List<PositionController> ();
 
     private void Start () {
-        pickingPieces = GameObject.FindGameObjectWithTag (Tags.Player).GetComponent<PickingPieces> ();
+        GameObject player = GameObject.FindGameObjectWithTag (Tags.Player);
+        pickingPieces = player.GetComponent<PickingPieces> ();
     }
 
     private void Update () {
-        if (isPicked) {
+        if (isPickedUp) {
             transform.position = pickingPieces.getMousePos ();
         } else {
             pickingPieces.checkPiece (this);
-
-            if (lastHightlightedPosition != null) {
-                lastHightlightedPosition.hideHighlight ();
-                lastHightlightedPosition = null;
-            }
         }
     }
 
+    private void removeHoverHighlightFromLastPosition () {
+        if (lastHightlightedHoverPosition != null) {
+            lastHightlightedHoverPosition.hideHoverHighlight ();
+            lastHightlightedHoverPosition = null;
+        }
+    }
+
+    public void pickUp () {
+        isPickedUp = true;
+
+        possibleMovementPositions.ForEach (p => p.showPossibleMovementHighlight ());
+    }
+
+    public void release () {
+        isPickedUp = false;
+
+        if (lastHightlightedHoverPosition != null && possibleMovementPositions.Contains (lastHightlightedHoverPosition)) {
+            currentPosition = lastHightlightedHoverPosition;
+        }
+
+        transform.position = currentPosition.transform.position;
+
+        removeHoverHighlightFromLastPosition ();
+        possibleMovementPositions.ForEach (p => p.hidePossibleMovementHighlight ());
+    }
+
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (isPicked) {
-            PositionController positionController = collider.GetComponent<PositionController> ();
+        PositionController positionController = collider.GetComponent<PositionController> ();
+
+        if (isPickedUp) {
 
             if (positionController != null) {
-                if (lastHightlightedPosition != null) {
-                    lastHightlightedPosition.hideHighlight ();
-                }
+                removeHoverHighlightFromLastPosition ();
 
-                lastHightlightedPosition = positionController;
-                lastHightlightedPosition.showHighlight ();
+                lastHightlightedHoverPosition = positionController;
+                lastHightlightedHoverPosition.showHoverHighlight ();
             }
+        } else if (currentPosition == null) {
+            currentPosition = positionController;
         }
     }
 
     private void OnTriggerExit2D (Collider2D collider) {
-        if (isPicked) {
+        if (isPickedUp) {
             PositionController positionController = collider.GetComponent<PositionController> ();
 
             if (positionController != null) {
-                positionController.hideHighlight ();
+                positionController.hideHoverHighlight ();
             }
         }
     }
