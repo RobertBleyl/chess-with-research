@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputActions.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Input/InputActions.inputactions'
 
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     ""name"": ""InputActions"",
     ""maps"": [
         {
-            ""name"": ""StandardInput"",
+            ""name"": ""Player"",
             ""id"": ""6e92bffe-46f9-498c-8800-40494a1857f6"",
             ""actions"": [
                 {
@@ -50,9 +50,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // StandardInput
-        m_StandardInput = asset.FindActionMap("StandardInput", throwIfNotFound: true);
-        m_StandardInput_PlacePieceOnBoard = m_StandardInput.FindAction("PlacePieceOnBoard", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_PlacePieceOnBoard = m_Player.FindAction("PlacePieceOnBoard", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -99,29 +99,29 @@ public class @InputActions : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // StandardInput
-    private readonly InputActionMap m_StandardInput;
-    private IStandardInputActions m_StandardInputActionsCallbackInterface;
-    private readonly InputAction m_StandardInput_PlacePieceOnBoard;
-    public struct StandardInputActions
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_PlacePieceOnBoard;
+    public struct PlayerActions
     {
         private @InputActions m_Wrapper;
-        public StandardInputActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PlacePieceOnBoard => m_Wrapper.m_StandardInput_PlacePieceOnBoard;
-        public InputActionMap Get() { return m_Wrapper.m_StandardInput; }
+        public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PlacePieceOnBoard => m_Wrapper.m_Player_PlacePieceOnBoard;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(StandardInputActions set) { return set.Get(); }
-        public void SetCallbacks(IStandardInputActions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_StandardInputActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @PlacePieceOnBoard.started -= m_Wrapper.m_StandardInputActionsCallbackInterface.OnPlacePieceOnBoard;
-                @PlacePieceOnBoard.performed -= m_Wrapper.m_StandardInputActionsCallbackInterface.OnPlacePieceOnBoard;
-                @PlacePieceOnBoard.canceled -= m_Wrapper.m_StandardInputActionsCallbackInterface.OnPlacePieceOnBoard;
+                @PlacePieceOnBoard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlacePieceOnBoard;
+                @PlacePieceOnBoard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlacePieceOnBoard;
+                @PlacePieceOnBoard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlacePieceOnBoard;
             }
-            m_Wrapper.m_StandardInputActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @PlacePieceOnBoard.started += instance.OnPlacePieceOnBoard;
@@ -130,7 +130,7 @@ public class @InputActions : IInputActionCollection, IDisposable
             }
         }
     }
-    public StandardInputActions @StandardInput => new StandardInputActions(this);
+    public PlayerActions @Player => new PlayerActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -140,7 +140,7 @@ public class @InputActions : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
-    public interface IStandardInputActions
+    public interface IPlayerActions
     {
         void OnPlacePieceOnBoard(InputAction.CallbackContext context);
     }
