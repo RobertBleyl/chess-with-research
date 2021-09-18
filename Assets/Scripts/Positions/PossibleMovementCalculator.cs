@@ -14,6 +14,12 @@ public class PossibleMovementCalculator : MonoBehaviour {
         }
 
         calculatePossibleMovements ();
+
+        Events.instance.onTurnDone += onTurnDone;
+    }
+
+    private void onTurnDone (Player player) {
+        calculatePossibleMovements ();
     }
 
     public void calculatePossibleMovements () {
@@ -49,9 +55,7 @@ public class PossibleMovementCalculator : MonoBehaviour {
                         endLocation.x = Mathf.Round (endLocation.x);
                         endLocation.y = Mathf.Round (endLocation.y);
 
-                        if (endLocation.x > 0 && endLocation.x < 9 && endLocation.y > 0 && endLocation.y < 9) {
-                            addPossiblePosition (pieceController, endLocation);
-                        } else {
+                        if (endLocation.x < 1 || endLocation.x > 8 || endLocation.y < 1 || endLocation.y > 8 || !addPossiblePosition (pieceController, endLocation)) {
                             break;
                         }
                     }
@@ -60,12 +64,15 @@ public class PossibleMovementCalculator : MonoBehaviour {
         }
     }
 
-    private void addPossiblePosition (PieceController pieceController, Vector2 endLocation) {
+    private bool addPossiblePosition (PieceController pieceController, Vector2 endLocation) {
         PositionController endPosition;
         positions.TryGetValue (endLocation, out endPosition);
 
-        if (endPosition != null && endPosition.currentPiece == null) { // TODO check opponent
+        if (endPosition != null && endPosition.currentPiece?.getPlayer () != pieceController.getPlayer ()) {
             pieceController.possibleMovementPositions.Add (endPosition);
+            return endPosition.currentPiece == null;
         }
+
+        return false;
     }
 }

@@ -1,17 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class PieceController : MonoBehaviour {
 
     [SerializeField]
     public PieceMoveSet moveSet;
+    [SerializeField]
+    private Player player;
 
     private PickingPieces pickingPieces;
     private bool isPickedUp;
     private PositionController lastHightlightedHoverPosition;
 
     public PositionController currentPosition;
-    public List<PositionController> possibleMovementPositions = new List<PositionController> ();
+    public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
     private void Start () {
         GameObject player = GameObject.FindGameObjectWithTag (Tags.Player);
@@ -28,7 +31,7 @@ public class PieceController : MonoBehaviour {
 
     private void removeHoverHighlightFromLastPosition () {
         if (lastHightlightedHoverPosition != null) {
-            lastHightlightedHoverPosition.hideHoverHighlight ();
+            lastHightlightedHoverPosition.showHoverHighlight (false);
             lastHightlightedHoverPosition = null;
         }
     }
@@ -36,32 +39,44 @@ public class PieceController : MonoBehaviour {
     public void pickUp () {
         isPickedUp = true;
 
-        possibleMovementPositions.ForEach (p => p.showPossibleMovementHighlight ());
+        showPossibleMovementHighlights (true);
     }
 
     public void release () {
         isPickedUp = false;
+        bool turnDone = false;
 
         if (lastHightlightedHoverPosition != null && possibleMovementPositions.Contains (lastHightlightedHoverPosition)) {
+            currentPosition.currentPiece = null;
             currentPosition = lastHightlightedHoverPosition;
+            turnDone = true;
         }
 
         transform.position = currentPosition.transform.position;
 
         removeHoverHighlightFromLastPosition ();
-        possibleMovementPositions.ForEach (p => p.hidePossibleMovementHighlight ());
+        showPossibleMovementHighlights (false);
+
+        if (turnDone) {
+            Events.instance.turnDone (player);
+        }
+    }
+
+    private void showPossibleMovementHighlights (bool show) {
+        foreach (PositionController positionController in possibleMovementPositions) {
+            positionController.showPossibleMovementHighlight (show);
+        }
     }
 
     private void OnTriggerEnter2D (Collider2D collider) {
         PositionController positionController = collider.GetComponent<PositionController> ();
 
         if (isPickedUp) {
-
-            if (positionController != null) {
+            if (positionController != null && possibleMovementPositions.Contains (positionController)) {
                 removeHoverHighlightFromLastPosition ();
 
                 lastHightlightedHoverPosition = positionController;
-                lastHightlightedHoverPosition.showHoverHighlight ();
+                lastHightlightedHoverPosition.showHoverHighlight (true);
             }
         } else if (currentPosition == null) {
             currentPosition = positionController;
@@ -72,9 +87,13 @@ public class PieceController : MonoBehaviour {
         if (isPickedUp) {
             PositionController positionController = collider.GetComponent<PositionController> ();
 
-            if (positionController != null) {
-                positionController.hideHoverHighlight ();
+            if (positionController == lastHightlightedHoverPosition) {
+                removeHoverHighlightFromLastPosition ();
             }
         }
+    }
+
+    public Player getPlayer () {
+        return player;
     }
 }

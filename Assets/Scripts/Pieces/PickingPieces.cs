@@ -5,15 +5,28 @@ public class PickingPieces : MonoBehaviour {
 
     private Vector3 currentMousePos;
 
+    private Player currentPlayer = Player.WHITE;
     private float currentNearestDist;
     public PieceController currentNearestPiece;
 
     private bool wasReset;
 
+    private void Start () {
+        Events.instance.onTurnDone += onTurnDone;
+    }
+
+    private void onTurnDone (Player player) {
+        currentPlayer = player == Player.WHITE ? Player.BLACK : Player.WHITE;
+    }
+
     public void checkPiece (PieceController pieceController) {
         if (!wasReset) {
             currentNearestPiece = null;
             wasReset = true;
+        }
+
+        if (currentPlayer != pieceController.getPlayer ()) {
+            return;
         }
 
         float dist = Vector3.Distance (currentMousePos, pieceController.transform.position);

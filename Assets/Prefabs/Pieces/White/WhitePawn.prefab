@@ -60,6 +60,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8943791271030034299, guid: 007696d21f197cf458d964edcfb78baa, type: 3}
     - target: {fileID: 5541660452974669950, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
+      propertyPath: player
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5541660452974669950, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
       propertyPath: moveSet
       value: 
       objectReference: {fileID: 11400000, guid: 78b315cf8f60c7e41b6d4c59c6259810, type: 2}

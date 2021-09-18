@@ -9,19 +9,11 @@ public class PositionController : MonoBehaviour {
 
     public PieceController currentPiece;
 
-    public void showHoverHighlight () {
-        hoverHighlight.gameObject.SetActive (true);
+    public void showHoverHighlight (bool show) {
+        hoverHighlight.gameObject.SetActive (show);
     }
 
-    public void hideHoverHighlight () {
-        hoverHighlight.gameObject.SetActive (false);
-    }
-
-    public void showPossibleMovementHighlight () {
-        possibleMovementHighlight.gameObject.SetActive (true);
-    }
-
-    public void hidePossibleMovementHighlight () {
-        possibleMovementHighlight.gameObject.SetActive (false);
+    public void showPossibleMovementHighlight (bool show) {
+        possibleMovementHighlight.gameObject.SetActive (show);
     }
 }
