@@ -25,7 +25,7 @@ public class PickingPieces : MonoBehaviour {
             wasReset = true;
         }
 
-        if (currentPlayer != pieceController.getPlayer ()) {
+        if (pieceController.captured || currentPlayer != pieceController.getPlayer ()) {
             return;
         }
 

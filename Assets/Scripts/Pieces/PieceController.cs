@@ -10,15 +10,18 @@ public class PieceController : MonoBehaviour {
     private Player player;
 
     private PickingPieces pickingPieces;
+    private CapturedPieces capturedPieces;
     private bool isPickedUp;
     private PositionController lastHightlightedHoverPosition;
 
+    public bool captured;
     public PositionController currentPosition;
     public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
     private void Start () {
         GameObject player = GameObject.FindGameObjectWithTag (Tags.Player);
         pickingPieces = player.GetComponent<PickingPieces> ();
+        capturedPieces = player.GetComponent<CapturedPieces> ();
     }
 
     private void Update () {
@@ -48,6 +51,12 @@ public class PieceController : MonoBehaviour {
 
         if (lastHightlightedHoverPosition != null && possibleMovementPositions.Contains (lastHightlightedHoverPosition)) {
             currentPosition.currentPiece = null;
+
+            if (lastHightlightedHoverPosition.currentPiece != null) {
+                capturedPieces.playerCapturesPiece (player, lastHightlightedHoverPosition.currentPiece);
+                lastHightlightedHoverPosition.currentPiece = null;
+            }
+
             currentPosition = lastHightlightedHoverPosition;
             turnDone = true;
         }

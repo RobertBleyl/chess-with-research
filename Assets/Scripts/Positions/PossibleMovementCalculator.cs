@@ -29,6 +29,10 @@ public class PossibleMovementCalculator : MonoBehaviour {
             PieceController pieceController = piece.GetComponent<PieceController> ();
             pieceController.possibleMovementPositions.Clear ();
 
+            if (pieceController.captured) {
+                continue;
+            }
+
             Vector2 piecePos = new Vector2 (piece.transform.position.x, piece.transform.position.y);
             positions[piecePos].currentPiece = pieceController;
 
