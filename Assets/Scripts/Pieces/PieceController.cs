@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class PieceController : MonoBehaviour {
 
@@ -14,14 +13,19 @@ public class PieceController : MonoBehaviour {
     private bool isPickedUp;
     private PositionController lastHightlightedHoverPosition;
 
+    public bool quickStartPossible;
     public bool captured;
     public PositionController currentPosition;
     public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
+    private void Awake () {
+        quickStartPossible = moveSet.hasQuickStart;
+    }
+
     private void Start () {
-        GameObject player = GameObject.FindGameObjectWithTag (Tags.Player);
-        pickingPieces = player.GetComponent<PickingPieces> ();
-        capturedPieces = player.GetComponent<CapturedPieces> ();
+        GameObject main = GameObject.FindGameObjectWithTag (Tags.Main);
+        pickingPieces = main.GetComponent<PickingPieces> ();
+        capturedPieces = main.GetComponent<CapturedPieces> ();
     }
 
     private void Update () {
@@ -58,6 +62,7 @@ public class PieceController : MonoBehaviour {
             }
 
             currentPosition = lastHightlightedHoverPosition;
+            quickStartPossible = false;
             turnDone = true;
         }
 

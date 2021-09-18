@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7666163727454498352}
   m_Layer: 0
   m_Name: Main
-  m_TagString: Player
+  m_TagString: Main
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +98,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1470ca24ec320bf4b8d6671adeb30ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  capturedWhitePiecePositions: []
+  capturedBlackPiecePositions: []

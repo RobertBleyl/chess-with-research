@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 11400000, guid: a02b53b870bc43b4c90db23f36c40a77, type: 2}
+  hasQuickStart: 1
+  hasDiagonalCapture: 1

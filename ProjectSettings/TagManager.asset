@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Position
   - Piece
+  - Main
   layers:
   - Default
   - TransparentFX

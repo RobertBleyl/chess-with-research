@@ -3,19 +3,30 @@ using UnityEngine;
 
 public class PossibleMovementCalculator : MonoBehaviour {
 
-    private Dictionary<Vector2, PositionController> positions = new Dictionary<Vector2, PositionController> ();
+    private Dictionary<string, PositionController> positions = new Dictionary<string, PositionController> ();
 
     private void Start () {
         GameObject[] positionObjects = GameObject.FindGameObjectsWithTag (Tags.Position);
 
         foreach (GameObject position in positionObjects) {
-            Vector2 pos = new Vector2 (position.transform.position.x, position.transform.position.y);
-            positions[pos] = position.GetComponent<PositionController> ();
+            positions[toKey (position.transform.position)] = position.GetComponent<PositionController> ();
         }
 
         calculatePossibleMovements ();
 
         Events.instance.onTurnDone += onTurnDone;
+    }
+
+    private string toKey (Vector2 value) {
+        int x = (int)value.x;
+        int y = (int)value.y;
+        return x + "_" + y;
+    }
+
+    private PositionController getPos (Vector2 location) {
+        PositionController position;
+        positions.TryGetValue (toKey (location), out position);
+        return position;
     }
 
     private void onTurnDone (Player player) {
@@ -25,55 +36,83 @@ public class PossibleMovementCalculator : MonoBehaviour {
     public void calculatePossibleMovements () {
         GameObject[] pieces = GameObject.FindGameObjectsWithTag (Tags.Piece);
 
-        foreach (GameObject piece in pieces) {
-            PieceController pieceController = piece.GetComponent<PieceController> ();
-            pieceController.possibleMovementPositions.Clear ();
+        List<PieceController> movablePieces = new List<PieceController> ();
 
-            if (pieceController.captured) {
+        foreach (GameObject pieceObject in pieces) {
+            PieceController piece = pieceObject.GetComponent<PieceController> ();
+
+            if (piece.captured) {
                 continue;
             }
 
-            Vector2 piecePos = new Vector2 (piece.transform.position.x, piece.transform.position.y);
-            positions[piecePos].currentPiece = pieceController;
+            getPos (piece.transform.position).currentPiece = piece;
+            movablePieces.Add (piece);
+        }
 
-            foreach (PieceMoveSetItem item in pieceController.moveSet.items) {
+        foreach (PieceController piece in movablePieces) {
+            piece.possibleMovementPositions.Clear ();
+
+            if (piece.captured) {
+                continue;
+            }
+
+            PieceMoveSet moveSet = piece.moveSet;
+
+            foreach (PieceMoveSetItem item in moveSet.items) {
                 if (item.move.Length == 2) {
                     // Knight movement
-                    Vector2 endLocation = piecePos;
+                    Vector2 endLocation = piece.transform.position;
 
                     foreach (Vector2 direction in item.move) {
                         endLocation += direction;
                     }
 
-                    addPossiblePosition (pieceController, endLocation);
+                    addPossiblePosition (piece, endLocation, false);
                 } else {
                     // Everything else's movement
                     Vector2 direction = item.move[0];
-                    float max = Mathf.Max (direction.x, direction.y);
                     Vector2 normDir = direction.normalized;
 
-                    Vector2 endLocation = piecePos;
+                    Vector2 endLocation = piece.transform.position;
 
                     for (int i = 1; i <= direction.magnitude; i++) {
                         endLocation += new Vector2 (normDir.x, normDir.y);
-                        endLocation.x = Mathf.Round (endLocation.x);
-                        endLocation.y = Mathf.Round (endLocation.y);
 
-                        if (endLocation.x < 1 || endLocation.x > 8 || endLocation.y < 1 || endLocation.y > 8 || !addPossiblePosition (pieceController, endLocation)) {
+                        if (!addPossiblePosition (piece, endLocation, moveSet.hasDiagonalCapture)) {
                             break;
                         }
+                    }
+
+                    if (piece.quickStartPossible) {
+                        addPossiblePosition (piece, endLocation + direction, moveSet.hasDiagonalCapture);
+                    }
+
+                    if (moveSet.hasDiagonalCapture) {
+                        checkDiagonalCaptureLocation (piece, endLocation + Vector2.left);
+                        checkDiagonalCaptureLocation (piece, endLocation + Vector2.right);
                     }
                 }
             }
         }
     }
 
-    private bool addPossiblePosition (PieceController pieceController, Vector2 endLocation) {
-        PositionController endPosition;
-        positions.TryGetValue (endLocation, out endPosition);
+    private void checkDiagonalCaptureLocation (PieceController piece, Vector2 endLocation) {
+        PositionController endPosition = getPos (endLocation);
 
-        if (endPosition != null && endPosition.currentPiece?.getPlayer () != pieceController.getPlayer ()) {
-            pieceController.possibleMovementPositions.Add (endPosition);
+        if (endPosition != null && endPosition.currentPiece != null && endPosition.currentPiece.getPlayer () != piece.getPlayer ()) {
+            piece.possibleMovementPositions.Add (endPosition);
+        }
+    }
+
+    private bool addPossiblePosition (PieceController piece, Vector2 endLocation, bool hasDiagonalCapture) {
+        if (endLocation.x < 1 || endLocation.x > 8 || endLocation.y < 1 || endLocation.y > 8) {
+            return false;
+        }
+
+        PositionController endPosition = getPos (endLocation);
+
+        if (endPosition != null && (endPosition.currentPiece == null || (!hasDiagonalCapture && endPosition.currentPiece.getPlayer () != piece.getPlayer ()))) {
+            piece.possibleMovementPositions.Add (endPosition);
             return endPosition.currentPiece == null;
         }
 
