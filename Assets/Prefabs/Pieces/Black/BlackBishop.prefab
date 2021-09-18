@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1742767147375213448
+--- !u!1001 &6527447598462274337
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4134540237520929656, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
       propertyPath: m_Name
-      value: Bishop
+      value: BlackBishop
       objectReference: {fileID: 0}
     - target: {fileID: 4134540237520929662, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
       propertyPath: m_RootOrder
@@ -55,9 +55,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4134540237520929663, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6092474145219291535, guid: c721663f57916914ba65ad5f12cc78c6, type: 3}
     - target: {fileID: 5541660452974669950, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
       propertyPath: moveSet
       value: 
       objectReference: {fileID: 11400000, guid: 9d93e1ea2300afb4d950d9ee224d9f1e, type: 2}
+    - target: {fileID: 6741791813081765087, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741791813081765087, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bf1f6ae110bc69489e4dcd8cfcfcee6, type: 3}
