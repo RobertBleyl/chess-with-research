@@ -11,4 +11,8 @@ public class PieceMoveSet : ScriptableObject {
     public bool hasDiagonalCapture;
     [SerializeField]
     public int promotationRank;
+    [SerializeField]
+    public bool canInitCastle;
+    [SerializeField]
+    public bool canBeCastledWith;
 }

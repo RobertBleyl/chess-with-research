@@ -14,12 +14,14 @@ public class PieceController : MonoBehaviour {
     private PositionController lastHightlightedHoverPosition;
 
     public bool quickStartPossible;
+    public bool castlePossible;
     public bool captured;
     public PositionController currentPosition;
     public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
     private void Awake () {
         quickStartPossible = moveSet.quickStartRank > 0 && moveSet.quickStartRank == transform.position.y;
+        castlePossible = moveSet.canInitCastle || moveSet.canBeCastledWith;
     }
 
     private void Start () {
@@ -52,30 +54,49 @@ public class PieceController : MonoBehaviour {
     public void release () {
         isPickedUp = false;
         bool turnDone = false;
+        bool castledSuccessful = false;
 
         if (lastHightlightedHoverPosition != null && possibleMovementPositions.Contains (lastHightlightedHoverPosition)) {
             currentPosition.currentPiece = null;
 
             if (lastHightlightedHoverPosition.currentPiece != null) {
-                capturedPieces.playerCapturesPiece (player, lastHightlightedHoverPosition.currentPiece);
+                if (moveSet.canInitCastle && castlePossible && lastHightlightedHoverPosition.currentPiece.castlePossible) {
+                    int rookCastlePos = (int)lastHightlightedHoverPosition.currentPiece.transform.position.x == 1 ? 4 : 6;
+                    lastHightlightedHoverPosition.currentPiece.transform.position = new Vector3 (rookCastlePos, lastHightlightedHoverPosition.currentPiece.transform.position.y, 0f);
+                    lastHightlightedHoverPosition.currentPiece.castlePossible = false;
 
-                GameObject capturedPieceObject = lastHightlightedHoverPosition.currentPiece.gameObject;
-                lastHightlightedHoverPosition.currentPiece = null;
+                    int kingCastlePos = rookCastlePos == 4 ? 3 : 7;
+                    transform.position = new Vector3 (kingCastlePos, lastHightlightedHoverPosition.currentPiece.transform.position.y, 0f);
 
-                Destroy (capturedPieceObject);
+                    castledSuccessful = true;
+                } else {
+                    capturedPieces.playerCapturesPiece (player, lastHightlightedHoverPosition.currentPiece);
+
+                    GameObject capturedPieceObject = lastHightlightedHoverPosition.currentPiece.gameObject;
+                    lastHightlightedHoverPosition.currentPiece = null;
+
+                    Destroy (capturedPieceObject);
+                }
             }
 
-            currentPosition = lastHightlightedHoverPosition;
+            if (!castledSuccessful) {
+                currentPosition = lastHightlightedHoverPosition;
+            }
+
             quickStartPossible = false;
             turnDone = true;
 
-            if (moveSet.promotationRank > 0 && currentPosition.transform.position.y == moveSet.promotationRank) {
+            if (currentPosition.transform.position.y == moveSet.promotationRank) {
                 Events.instance.promotionInitiated (this);
                 turnDone = false;
             }
+
+            castlePossible = false;
         }
 
-        transform.position = currentPosition.transform.position;
+        if (!castledSuccessful) {
+            transform.position = currentPosition.transform.position;
+        }
 
         removeHoverHighlightFromLastPosition ();
         showPossibleMovementHighlights (false);

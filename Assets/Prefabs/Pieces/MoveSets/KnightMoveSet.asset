@@ -21,3 +21,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e662c49c91fde540ab07f7e60920018, type: 2}
   - {fileID: 11400000, guid: 1b887fbaf9798f44b9e33587c96fb50a, type: 2}
   - {fileID: 11400000, guid: 7a6e9f22aaead8e41a242e523c158119, type: 2}
+  quickStartRank: 0
+  hasDiagonalCapture: 0
+  promotationRank: 0
+  canInitCastle: 0
+  canBeCastledWith: 0

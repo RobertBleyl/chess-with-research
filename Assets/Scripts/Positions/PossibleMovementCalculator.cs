@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,7 +46,10 @@ public class PossibleMovementCalculator : MonoBehaviour {
                 continue;
             }
 
-            getPos (piece.transform.position).currentPiece = piece;
+            PositionController pos = getPos (piece.transform.position);
+            pos.currentPiece = piece;
+            piece.currentPosition = pos;
+
             movablePieces.Add (piece);
         }
 
@@ -93,8 +97,33 @@ public class PossibleMovementCalculator : MonoBehaviour {
                         checkDiagonalCaptureLocation (piece, endLocation + Vector2.left);
                         checkDiagonalCaptureLocation (piece, endLocation + Vector2.right);
                     }
+
+                    if (moveSet.canInitCastle && piece.castlePossible) {
+                        checkCastling (piece, Vector2.left);
+                        checkCastling (piece, Vector2.right);
+                    }
                 }
             }
+        }
+    }
+
+    private void checkCastling (PieceController piece, Vector2 direction) {
+        Vector2 currentLocation = piece.transform.position;
+        currentLocation += direction;
+
+        while (currentLocation.x >= 1 && currentLocation.x <= 8) {
+            PositionController pos = getPos (currentLocation);
+            PieceController currentPiece = pos.currentPiece;
+
+            if (currentPiece != null) {
+                if (currentPiece.getPlayer () == piece.getPlayer () && currentPiece.castlePossible) {
+                    piece.possibleMovementPositions.Add (pos);
+                }
+
+                break;
+            }
+
+            currentLocation += direction;
         }
     }
 
