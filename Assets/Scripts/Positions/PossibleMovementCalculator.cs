@@ -72,6 +72,8 @@ public class PossibleMovementCalculator : MonoBehaviour {
                     // Everything else's movement
                     Vector2 direction = item.move[0];
                     Vector2 normDir = direction.normalized;
+                    normDir.x = Mathf.Round (normDir.x);
+                    normDir.y = Mathf.Round (normDir.y);
 
                     Vector2 endLocation = piece.transform.position;
 

@@ -6,7 +6,7 @@ public class PieceMoveSet : ScriptableObject {
     [SerializeField]
     public PieceMoveSetItem[] items;
     [SerializeField]
-    public bool hasQuickStart;
+    public int quickStartRank;
     [SerializeField]
     public bool hasDiagonalCapture;
     [SerializeField]

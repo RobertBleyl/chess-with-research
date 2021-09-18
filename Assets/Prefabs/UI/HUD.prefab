@@ -56,13 +56,13 @@ MonoBehaviour:
   promoteWhitePiecePanel: {fileID: 4277405956325108515}
   promoteBlackPiecePanel: {fileID: 2441144041859010176}
   whiteQueenPrefab: {fileID: 74231597873606727, guid: 90611fe115290884daddf835fe01cc6b, type: 3}
-  whiteKnightPrefab: {fileID: 0}
-  whiteBishopPrefab: {fileID: 0}
-  whiteRookPrefab: {fileID: 0}
-  blackQueenPrefab: {fileID: 0}
-  blackKnightPrefab: {fileID: 0}
-  blackBishopPrefab: {fileID: 0}
-  blackRookPrefab: {fileID: 0}
+  whiteKnightPrefab: {fileID: 5806422320428497619, guid: 9186e9f7bfbf9e44e90b53d66b8dd123, type: 3}
+  whiteBishopPrefab: {fileID: 2400237234037700848, guid: 7a8a54e595fad394b9b141cfc7806acb, type: 3}
+  whiteRookPrefab: {fileID: 7704246323156663142, guid: 037b5e9ae001abd4894be49442a8ed07, type: 3}
+  blackQueenPrefab: {fileID: 4377338127686086998, guid: 4bc2f1a62f92dfd4aacb607d2c6ed92c, type: 3}
+  blackKnightPrefab: {fileID: 6869446378337736709, guid: 9b2228e634afa354faaef212509892d0, type: 3}
+  blackBishopPrefab: {fileID: 7203210123583195225, guid: 2538b651016a5904da8a53d8f0a00d18, type: 3}
+  blackRookPrefab: {fileID: 7295839973560662766, guid: 6bfb40fe20bc5704fb7a21b64945c1ea, type: 3}
 --- !u!223 &990073626428724997
 Canvas:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnWhiteBishop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -457,7 +457,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnWhiteRook
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -589,7 +589,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnWhiteKnight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -800,7 +800,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnBlackBishop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -932,7 +932,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnWhiteKnight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1064,7 +1064,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnWhiteBishop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1196,7 +1196,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4162196438484034090}
         m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
-        m_MethodName: spawnWhiteQueen
+        m_MethodName: spawnBlackQueen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

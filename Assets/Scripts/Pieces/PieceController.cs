@@ -19,7 +19,7 @@ public class PieceController : MonoBehaviour {
     public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
     private void Awake () {
-        quickStartPossible = moveSet.hasQuickStart;
+        quickStartPossible = moveSet.quickStartRank > 0 && moveSet.quickStartRank == transform.position.y;
     }
 
     private void Start () {

@@ -64,4 +64,32 @@ public class HUDController : MonoBehaviour {
     public void spawnWhiteQueen () {
         spawnPiece (whiteQueenPrefab);
     }
+
+    public void spawnWhiteKnight () {
+        spawnPiece (whiteKnightPrefab);
+    }
+
+    public void spawnWhiteBishop () {
+        spawnPiece (whiteBishopPrefab);
+    }
+
+    public void spawnWhiteRook () {
+        spawnPiece (whiteRookPrefab);
+    }
+
+    public void spawnBlackQueen () {
+        spawnPiece (blackQueenPrefab);
+    }
+
+    public void spawnBlackKnight () {
+        spawnPiece (blackKnightPrefab);
+    }
+
+    public void spawnBlackBishop () {
+        spawnPiece (blackBishopPrefab);
+    }
+
+    public void spawnBlackRook () {
+        spawnPiece (blackRookPrefab);
+    }
 }
