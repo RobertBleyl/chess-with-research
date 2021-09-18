@@ -16,3 +16,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 807b1e94b2f1a5c4ca217f1710fefbe8, type: 2}
   hasQuickStart: 1
   hasDiagonalCapture: 1
+  promotationRank: 1

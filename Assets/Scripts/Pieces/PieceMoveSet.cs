@@ -9,4 +9,6 @@ public class PieceMoveSet : ScriptableObject {
     public bool hasQuickStart;
     [SerializeField]
     public bool hasDiagonalCapture;
+    [SerializeField]
+    public int promotationRank;
 }

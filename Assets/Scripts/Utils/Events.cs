@@ -11,9 +11,17 @@ public class Events : MonoBehaviour {
 
     public event Action<Player> onTurnDone;
 
+    public event Action<PieceController> onPromotionInitiated;
+
     public void turnDone (Player player) {
         if (onTurnDone != null) {
             onTurnDone (player);
+        }
+    }
+
+    public void promotionInitiated (PieceController piece) {
+        if (onPromotionInitiated != null) {
+            onPromotionInitiated (piece);
         }
     }
 }

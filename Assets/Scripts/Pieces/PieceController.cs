@@ -58,12 +58,21 @@ public class PieceController : MonoBehaviour {
 
             if (lastHightlightedHoverPosition.currentPiece != null) {
                 capturedPieces.playerCapturesPiece (player, lastHightlightedHoverPosition.currentPiece);
+
+                GameObject capturedPieceObject = lastHightlightedHoverPosition.currentPiece.gameObject;
                 lastHightlightedHoverPosition.currentPiece = null;
+
+                Destroy (capturedPieceObject);
             }
 
             currentPosition = lastHightlightedHoverPosition;
             quickStartPossible = false;
             turnDone = true;
+
+            if (moveSet.promotationRank > 0 && currentPosition.transform.position.y == moveSet.promotationRank) {
+                Events.instance.promotionInitiated (this);
+                turnDone = false;
+            }
         }
 
         transform.position = currentPosition.transform.position;
