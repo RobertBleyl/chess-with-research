@@ -15,7 +15,6 @@ public class PieceController : MonoBehaviour {
 
     public bool quickStartPossible;
     public bool castlePossible;
-    public bool captured;
     public PositionController currentPosition;
     public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
