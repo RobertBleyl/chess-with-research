@@ -35,6 +35,7 @@ public class CheckCalculator {
 
     public bool moveWouldResultInOwnCheck (PieceController pieceToMove, PositionController posToMoveTo) {
         PieceController originalPieceOfPos = posToMoveTo.currentPiece;
+
         posToMoveTo.currentPiece = pieceToMove;
 
         Vector3 originalPiecePos = pieceToMove.transform.position;
@@ -47,7 +48,7 @@ public class CheckCalculator {
         bool checkFound = false;
 
         foreach (PieceController piece in pieces) {
-            if (piece.getPlayer () != opponent) {
+            if (piece.getPlayer () != opponent || piece == originalPieceOfPos) {
                 continue;
             }
 
