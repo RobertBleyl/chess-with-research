@@ -48,6 +48,8 @@ public class PossibleMovementCalculator {
             }
         }
 
+        checkCastling ();
+
         return new PositionCalculationResult (possiblePositions);
     }
 
@@ -73,14 +75,12 @@ public class PossibleMovementCalculator {
         }
     }
 
-    private void checkCastling (List<PieceController> movablePieces) {
-        foreach (PieceController piece in movablePieces) {
-            PieceMoveSet moveSet = piece.moveSet;
+    private void checkCastling () {
+        PieceMoveSet moveSet = piece.moveSet;
 
-            if (moveSet.canInitCastle && piece.castlePossible) {
-                checkCastling (piece, Vector2.left);
-                checkCastling (piece, Vector2.right);
-            }
+        if (moveSet.canInitCastle && piece.castlePossible) {
+            checkCastling (piece, Vector2.left);
+            checkCastling (piece, Vector2.right);
         }
     }
 
