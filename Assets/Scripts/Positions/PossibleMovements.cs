@@ -9,10 +9,19 @@ public class PossibleMovements : MonoBehaviour {
         positions = new PositionsContainer ();
 
         Events.instance.onTurnDone += onTurnDone;
+
+        onTurnDone (Player.BLACK);
     }
 
-    private void onTurnDone (Player player) {
+    private void onTurnDone (Player playerWhoMadeTurn) {
+        Dictionary<Player, List<PieceController>> playerToPiecesMap = initPieces ();
 
+        Player nextPlayer = PlayerUtils.getOpponent (playerWhoMadeTurn);
+
+        List<PieceController> allPieces = new List<PieceController> (playerToPiecesMap[playerWhoMadeTurn]);
+        allPieces.AddRange (playerToPiecesMap[nextPlayer]);
+
+        calculatePossibleMovements (playerToPiecesMap[nextPlayer], new CheckCalculator (positions, allPieces, playerWhoMadeTurn));
     }
 
     private Dictionary<Player, List<PieceController>> initPieces () {
@@ -38,5 +47,15 @@ public class PossibleMovements : MonoBehaviour {
         }
 
         return pieces;
+    }
+
+    private void calculatePossibleMovements (List<PieceController> pieces, CheckCalculator checkCalculator) {
+        foreach (PieceController piece in pieces) {
+            PossibleMovementCalculator possibleMovementCalculator = new PossibleMovementCalculator (positions, checkCalculator, piece);
+
+            PositionCalculationResult result = possibleMovementCalculator.calculatePossibleMovements ();
+
+            piece.possibleMovementPositions = result.getPossibleMovementPositions ();
+        }
     }
 }

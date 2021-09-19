@@ -4,15 +4,13 @@ using UnityEngine;
 public class PossibleMovementCalculator {
 
     private readonly PositionsContainer positions;
-    private readonly List<PieceController> pieces;
     private readonly CheckCalculator checkCalculator;
     private readonly PieceController piece;
 
     private readonly HashSet<PositionController> possiblePositions = new HashSet<PositionController> ();
 
-    public PossibleMovementCalculator (PositionsContainer positions, List<PieceController> pieces, CheckCalculator checkCalculator, PieceController piece) {
+    public PossibleMovementCalculator (PositionsContainer positions, CheckCalculator checkCalculator, PieceController piece) {
         this.positions = positions;
-        this.pieces = pieces;
         this.checkCalculator = checkCalculator;
         this.piece = piece;
     }

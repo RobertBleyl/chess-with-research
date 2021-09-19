@@ -13,9 +13,9 @@ public class Events : MonoBehaviour {
 
     public event Action<PieceController> onPromotionInitiated;
 
-    public void turnDone (Player player) {
+    public void turnDone (Player playerWhoMadeTurn) {
         if (onTurnDone != null) {
-            onTurnDone (player);
+            onTurnDone (playerWhoMadeTurn);
         }
     }
 

@@ -16,7 +16,7 @@ public class PickingPieces : MonoBehaviour {
     }
 
     private void onTurnDone (Player player) {
-        currentPlayer = player == Player.WHITE ? Player.BLACK : Player.WHITE;
+        currentPlayer = PlayerUtils.getOpponent (player);
     }
 
     public void checkPiece (PieceController pieceController) {

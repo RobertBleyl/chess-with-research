@@ -46,7 +46,7 @@ public class CheckCalculator {
                 continue;
             }
 
-            PossibleMovementCalculator calculator = new PossibleMovementCalculator (positions, pieces, null, piece);
+            PossibleMovementCalculator calculator = new PossibleMovementCalculator (positions, null, piece);
             PositionCalculationResult result = calculator.calculatePossibleMovements ();
 
             if (result.getPossibleMovementPositions ().Contains (king.currentPosition)) {
