@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4342279cc927024d9d2e1a1bdbcbbb2, type: 3}
   m_Name: OneUpRight
   m_EditorClassIdentifier: 
-  move: []
+  move:
+  - {x: 1, y: 1}

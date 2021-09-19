@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4084642685961576227}
   m_Layer: 0
-  m_Name: BlackPieces
+  m_Name: StandardBlackPieces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

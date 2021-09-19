@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CheckCalculator {
 
@@ -33,10 +34,14 @@ public class CheckCalculator {
     }
 
     public bool moveWouldResultInOwnCheck (PieceController pieceToMove, PositionController posToMoveTo) {
+        PieceController originalPieceOfPos = posToMoveTo.currentPiece;
+        posToMoveTo.currentPiece = pieceToMove;
+
         Vector3 originalPiecePos = pieceToMove.transform.position;
         pieceToMove.transform.position = posToMoveTo.transform.position;
 
         PositionController originalPos = pieceToMove.currentPosition;
+        originalPos.currentPiece = null;
         pieceToMove.currentPosition = posToMoveTo;
 
         bool checkFound = false;
@@ -57,6 +62,8 @@ public class CheckCalculator {
 
         pieceToMove.transform.position = originalPiecePos;
         pieceToMove.currentPosition = originalPos;
+        originalPos.currentPiece = pieceToMove;
+        posToMoveTo.currentPiece = originalPieceOfPos;
 
         return checkFound;
     }
