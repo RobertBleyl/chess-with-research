@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PieceController : MonoBehaviour {
@@ -109,8 +110,13 @@ public class PieceController : MonoBehaviour {
         showPossibleMovementHighlights (false);
 
         if (turnDone) {
-            Events.instance.turnDone (player);
+            StartCoroutine (finishTurn ());
         }
+    }
+
+    private IEnumerator finishTurn () {
+        yield return new WaitForSecondsRealtime (0.1f);
+        Events.instance.turnDone (player);
     }
 
     private void capturePiece (PositionController position) {

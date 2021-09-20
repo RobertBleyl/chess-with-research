@@ -15,12 +15,7 @@ public class CheckCalculator {
         this.pieces = pieces;
         this.opponent = opponent;
 
-        foreach (PieceController piece in pieces) {
-            if (piece.getPlayer () != opponent && piece.moveSet.canInitCastle) {
-                king = piece;
-                break;
-            }
-        }
+        king = pieces.Where (p => p.getPlayer () != opponent && p.moveSet.checkMateTarget).First ();
     }
 
     public bool positionIsInCheck (PositionController pos) {

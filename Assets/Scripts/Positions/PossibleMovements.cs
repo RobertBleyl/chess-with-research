@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,16 +15,21 @@ public class PossibleMovements : MonoBehaviour {
     }
 
     private void onTurnDone (Player playerWhoMadeTurn) {
+        Player nextPlayer = PlayerUtils.getOpponent (playerWhoMadeTurn);
         Dictionary<Player, List<PieceController>> playerToPiecesMap = initPieces ();
 
-        calculatePossibleMovements (playerToPiecesMap[playerWhoMadeTurn], null);
+        List<PieceController> piecesOfPlayerWhoMadeTurn = playerToPiecesMap[playerWhoMadeTurn];
+        List<PieceController> piecesOfNextPlayer = playerToPiecesMap[nextPlayer];
 
-        Player nextPlayer = PlayerUtils.getOpponent (playerWhoMadeTurn);
+        calculatePossibleMovements (piecesOfPlayerWhoMadeTurn, null);
 
-        List<PieceController> allPieces = new List<PieceController> (playerToPiecesMap[playerWhoMadeTurn]);
-        allPieces.AddRange (playerToPiecesMap[nextPlayer]);
 
-        calculatePossibleMovements (playerToPiecesMap[nextPlayer], new CheckCalculator (positions, allPieces, playerWhoMadeTurn));
+        List<PieceController> allPieces = new List<PieceController> (piecesOfPlayerWhoMadeTurn);
+        allPieces.AddRange (piecesOfNextPlayer);
+
+        calculatePossibleMovements (piecesOfNextPlayer, new CheckCalculator (positions, allPieces, playerWhoMadeTurn));
+
+        detectCheckMate (piecesOfNextPlayer, piecesOfPlayerWhoMadeTurn);
     }
 
     private Dictionary<Player, List<PieceController>> initPieces () {
@@ -63,6 +68,18 @@ public class PossibleMovements : MonoBehaviour {
 
             piece.possibleMovementPositions = result.getPossibleMovementPositions ();
         }
+    }
+
+    private void detectCheckMate (List<PieceController> ownPieces, List<PieceController> opponentPieces) {
+        PieceController king = ownPieces.Where (p => p.moveSet.checkMateTarget).First ();
+
+        if (king.possibleMovementPositions.Count > 0) {
+            return;
+        }
+
+        // foreach () {
+
+        // }
     }
 
     public PositionController getPosition (Vector2 location) {

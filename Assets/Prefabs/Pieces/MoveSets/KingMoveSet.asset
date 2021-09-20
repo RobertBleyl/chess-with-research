@@ -26,3 +26,4 @@ MonoBehaviour:
   promotationRank: 0
   canInitCastle: 1
   canBeCastledWith: 0
+  checkMateTarget: 1

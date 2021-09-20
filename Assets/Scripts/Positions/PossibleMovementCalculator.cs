@@ -137,7 +137,7 @@ public class PossibleMovementCalculator {
 
         if (endPosition != null && (endPosition.currentPiece == null || (!hasDiagonalCapture && endPosition.currentPiece.getPlayer () != piece.getPlayer ()))) {
             if (checkCalculator != null && checkCalculator.moveWouldResultInOwnCheck (piece, endPosition)) {
-                return false;
+                return true;
             }
 
             possiblePositions.Add (endPosition);

@@ -15,4 +15,6 @@ public class PieceMoveSet : ScriptableObject {
     public bool canInitCastle;
     [SerializeField]
     public bool canBeCastledWith;
+    [SerializeField]
+    public bool checkMateTarget;
 }
