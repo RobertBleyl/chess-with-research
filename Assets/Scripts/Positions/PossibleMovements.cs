@@ -16,6 +16,8 @@ public class PossibleMovements : MonoBehaviour {
     private void onTurnDone (Player playerWhoMadeTurn) {
         Dictionary<Player, List<PieceController>> playerToPiecesMap = initPieces ();
 
+        calculatePossibleMovements (playerToPiecesMap[playerWhoMadeTurn], null);
+
         Player nextPlayer = PlayerUtils.getOpponent (playerWhoMadeTurn);
 
         List<PieceController> allPieces = new List<PieceController> (playerToPiecesMap[playerWhoMadeTurn]);

@@ -79,6 +79,10 @@ public class PossibleMovementCalculator {
         PieceMoveSet moveSet = piece.moveSet;
 
         if (moveSet.canInitCastle && piece.castlePossible) {
+            if (checkCalculator != null && checkCalculator.positionIsInCheck (piece.currentPosition)) {
+                return;
+            }
+
             checkCastling (piece, Vector2.left);
             checkCastling (piece, Vector2.right);
         }
@@ -91,6 +95,10 @@ public class PossibleMovementCalculator {
         while (currentLocation.x >= 1 && currentLocation.x <= 8) {
             PositionController pos = positions.getPosition (currentLocation);
             PieceController currentPiece = pos.currentPiece;
+
+            if (checkCalculator != null && checkCalculator.positionIsInCheck (pos)) {
+                break;
+            }
 
             if (currentPiece != null) {
                 if (currentPiece.getPlayer () == piece.getPlayer () && currentPiece.castlePossible) {
