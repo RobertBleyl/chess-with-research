@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +33,9 @@ public class PossibleMovements : MonoBehaviour {
 
         foreach (GameObject pieceObject in pieceObjects) {
             PieceController piece = pieceObject.GetComponent<PieceController> ();
+            int x = (int)piece.transform.position.x;
+            int y = (int)piece.transform.position.y;
+            piece.transform.position = new Vector3 (x, y, 0f);
 
             PositionController pos = positions.getPosition (piece);
             pos.currentPiece = piece;
@@ -59,5 +63,9 @@ public class PossibleMovements : MonoBehaviour {
 
             piece.possibleMovementPositions = result.getPossibleMovementPositions ();
         }
+    }
+
+    public PositionController getPosition (Vector2 location) {
+        return positions.getPosition (location);
     }
 }

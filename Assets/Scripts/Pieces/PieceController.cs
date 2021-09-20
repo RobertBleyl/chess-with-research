@@ -10,22 +10,25 @@ public class PieceController : MonoBehaviour {
 
     private PickingPieces pickingPieces;
     private CapturedPieces capturedPieces;
+    private PossibleMovements possibleMovements;
     private bool isPickedUp;
     private PositionController lastHightlightedHoverPosition;
 
     public bool quickStartPossible;
+    public bool quickStartWasJustUsed;
     public bool castlePossible;
     public PositionController currentPosition;
     public HashSet<PositionController> possibleMovementPositions = new HashSet<PositionController> ();
 
     private void Awake () {
-        quickStartPossible = moveSet.quickStartRank > 0 && moveSet.quickStartRank == transform.position.y;
+        quickStartPossible = moveSet.quickStartRank > 0 && moveSet.quickStartRank == (int)transform.position.y;
         castlePossible = moveSet.canInitCastle || moveSet.canBeCastledWith;
     }
 
     private void Start () {
         GameObject main = GameObject.FindGameObjectWithTag (Tags.Main);
         pickingPieces = main.GetComponent<PickingPieces> ();
+        possibleMovements = main.GetComponent<PossibleMovements> ();
         capturedPieces = main.GetComponent<CapturedPieces> ();
     }
 
@@ -54,6 +57,7 @@ public class PieceController : MonoBehaviour {
         isPickedUp = false;
         bool turnDone = false;
         bool castledSuccessful = false;
+        quickStartWasJustUsed = false;
 
         if (lastHightlightedHoverPosition != null && possibleMovementPositions.Contains (lastHightlightedHoverPosition)) {
             currentPosition.currentPiece = null;
@@ -69,12 +73,16 @@ public class PieceController : MonoBehaviour {
 
                     castledSuccessful = true;
                 } else {
-                    capturedPieces.playerCapturesPiece (player, lastHightlightedHoverPosition.currentPiece);
+                    capturePiece (lastHightlightedHoverPosition);
+                }
+            } else if (quickStartPossible && (int)Vector3.Distance (lastHightlightedHoverPosition.transform.position, currentPosition.transform.position) == 2) {
+                quickStartWasJustUsed = true;
+            } else if (moveSet.hasDiagonalCapture && lastHightlightedHoverPosition.transform.position.x != currentPosition.transform.position.x) {
+                Vector2 passedPawnLocation = (Vector2)lastHightlightedHoverPosition.transform.position - moveSet.items[0].move[0];
+                PositionController positionController = possibleMovements.getPosition (passedPawnLocation);
 
-                    GameObject capturedPieceObject = lastHightlightedHoverPosition.currentPiece.gameObject;
-                    lastHightlightedHoverPosition.currentPiece = null;
-
-                    Destroy (capturedPieceObject);
+                if (positionController != null && positionController.currentPiece != null && positionController.currentPiece.quickStartWasJustUsed) {
+                    capturePiece (positionController);
                 }
             }
 
@@ -103,6 +111,15 @@ public class PieceController : MonoBehaviour {
         if (turnDone) {
             Events.instance.turnDone (player);
         }
+    }
+
+    private void capturePiece (PositionController position) {
+        capturedPieces.playerCapturesPiece (player, position.currentPiece);
+
+        GameObject capturedPieceObject = position.currentPiece.gameObject;
+        position.currentPiece = null;
+
+        Destroy (capturedPieceObject);
     }
 
     private void showPossibleMovementHighlights (bool show) {

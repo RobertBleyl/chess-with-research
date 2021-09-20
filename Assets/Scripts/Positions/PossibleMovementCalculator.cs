@@ -44,6 +44,9 @@ public class PossibleMovementCalculator {
                 if (moveSet.hasDiagonalCapture) {
                     checkDiagonalCapture (endLocation + Vector2.left);
                     checkDiagonalCapture (endLocation + Vector2.right);
+
+                    checkEnPassant (Vector2.left);
+                    checkEnPassant (Vector2.right);
                 }
             }
         }
@@ -72,6 +75,19 @@ public class PossibleMovementCalculator {
             }
 
             possiblePositions.Add (endPosition);
+        }
+    }
+
+    private void checkEnPassant (Vector2 direction) {
+        PositionController endPosition = positions.getPosition ((Vector2)piece.transform.position + direction);
+
+        if (endPosition != null && endPosition.currentPiece != null && endPosition.currentPiece.getPlayer () != piece.getPlayer () && endPosition.currentPiece.quickStartWasJustUsed) {
+            if (checkCalculator != null && checkCalculator.moveWouldResultInOwnCheck (piece, endPosition)) {
+                return;
+            }
+
+            Vector2 targetLocation = (Vector2)endPosition.transform.position + piece.moveSet.items[0].move[0];
+            possiblePositions.Add (positions.getPosition (targetLocation));
         }
     }
 

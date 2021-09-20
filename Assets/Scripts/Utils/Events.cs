@@ -13,6 +13,8 @@ public class Events : MonoBehaviour {
 
     public event Action<PieceController> onPromotionInitiated;
 
+    public event Action onPromotionFinished;
+
     public void turnDone (Player playerWhoMadeTurn) {
         if (onTurnDone != null) {
             onTurnDone (playerWhoMadeTurn);
@@ -22,6 +24,12 @@ public class Events : MonoBehaviour {
     public void promotionInitiated (PieceController piece) {
         if (onPromotionInitiated != null) {
             onPromotionInitiated (piece);
+        }
+    }
+
+    public void promotionFinished () {
+        if (onPromotionFinished != null) {
+            onPromotionFinished ();
         }
     }
 }

@@ -59,6 +59,8 @@ public class HUDController : MonoBehaviour {
 
         promoteWhitePiecePanel.SetActive (false);
         promoteBlackPiecePanel.SetActive (false);
+
+        Events.instance.promotionFinished ();
     }
 
     public void spawnWhiteQueen () {
