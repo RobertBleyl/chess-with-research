@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour {
 
@@ -25,13 +27,24 @@ public class HUDController : MonoBehaviour {
     [SerializeField]
     private GameObject blackRookPrefab;
 
+    [SerializeField]
+    private GameObject winnerTextPanel;
+    [SerializeField]
+    private Text winnerText;
+    [SerializeField]
+    private GameObject restartButton;
+
     private PieceController pieceToBePromoted;
 
     private void Start () {
         Events.instance.onPromotionInitiated += onPromotionInitiated;
+        Events.instance.onCheckMate += onCheckMate;
 
         promoteWhitePiecePanel.SetActive (false);
         promoteBlackPiecePanel.SetActive (false);
+
+        winnerTextPanel.SetActive (false);
+        restartButton.SetActive (false);
     }
 
     private void onPromotionInitiated (PieceController piece) {
@@ -42,6 +55,18 @@ public class HUDController : MonoBehaviour {
         } else {
             promoteBlackPiecePanel.SetActive (true);
         }
+    }
+
+    private void onCheckMate (Player winner) {
+        winnerText.text = winner + " has won!";
+        winnerText.color = winner == Player.WHITE ? Color.white : Color.black;
+
+        winnerTextPanel.SetActive (true);
+        restartButton.SetActive (true);
+    }
+
+    public void onClickRestart () {
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
     }
 
     private void spawnPiece (GameObject prefab) {

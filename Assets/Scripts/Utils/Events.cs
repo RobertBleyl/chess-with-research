@@ -15,6 +15,8 @@ public class Events : MonoBehaviour {
 
     public event Action onPromotionFinished;
 
+    public event Action<Player> onCheckMate;
+
     public void turnDone (Player playerWhoMadeTurn) {
         if (onTurnDone != null) {
             onTurnDone (playerWhoMadeTurn);
@@ -30,6 +32,12 @@ public class Events : MonoBehaviour {
     public void promotionFinished () {
         if (onPromotionFinished != null) {
             onPromotionFinished ();
+        }
+    }
+
+    public void checkMate (Player winner) {
+        if (onCheckMate != null) {
+            onCheckMate (winner);
         }
     }
 }

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ public class PossibleMovements : MonoBehaviour {
 
         calculatePossibleMovements (piecesOfNextPlayer, new CheckCalculator (positions, allPieces, playerWhoMadeTurn));
 
-        detectCheckMate (piecesOfNextPlayer, piecesOfPlayerWhoMadeTurn);
+        detectCheckMate (piecesOfNextPlayer, playerWhoMadeTurn);
     }
 
     private Dictionary<Player, List<PieceController>> initPieces () {
@@ -70,16 +69,12 @@ public class PossibleMovements : MonoBehaviour {
         }
     }
 
-    private void detectCheckMate (List<PieceController> ownPieces, List<PieceController> opponentPieces) {
-        PieceController king = ownPieces.Where (p => p.moveSet.checkMateTarget).First ();
+    private void detectCheckMate (List<PieceController> ownPieces, Player playerWhoMadeTurn) {
+        PieceController pieceWithMoves = ownPieces.Find (p => p.possibleMovementPositions.Count > 0);
 
-        if (king.possibleMovementPositions.Count > 0) {
-            return;
+        if (pieceWithMoves == null) {
+            Events.instance.checkMate (playerWhoMadeTurn);
         }
-
-        // foreach () {
-
-        // }
     }
 
     public PositionController getPosition (Vector2 location) {
