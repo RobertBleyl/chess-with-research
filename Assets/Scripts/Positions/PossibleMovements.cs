@@ -28,7 +28,7 @@ public class PossibleMovements : MonoBehaviour {
 
         calculatePossibleMovements (piecesOfNextPlayer, new CheckCalculator (positions, allPieces, playerWhoMadeTurn));
 
-        detectCheckMate (piecesOfNextPlayer, playerWhoMadeTurn);
+        detectCheckMate (piecesOfNextPlayer, piecesOfPlayerWhoMadeTurn, playerWhoMadeTurn);
     }
 
     private Dictionary<Player, List<PieceController>> initPieces () {
@@ -69,11 +69,17 @@ public class PossibleMovements : MonoBehaviour {
         }
     }
 
-    private void detectCheckMate (List<PieceController> ownPieces, Player playerWhoMadeTurn) {
+    private void detectCheckMate (List<PieceController> ownPieces, List<PieceController> opponentPieces, Player playerWhoMadeTurn) {
         PieceController pieceWithMoves = ownPieces.Find (p => p.possibleMovementPositions.Count > 0);
 
         if (pieceWithMoves == null) {
-            Events.instance.checkMate (playerWhoMadeTurn);
+            PieceController king = ownPieces.Find (p => p.moveSet.checkMateTarget);
+
+            if (opponentPieces.Find (p => p.possibleMovementPositions.Contains (king.currentPosition)) != null) {
+                Events.instance.checkMate (playerWhoMadeTurn);
+            } else {
+                Events.instance.draw ();
+            }
         }
     }
 

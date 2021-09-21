@@ -28,9 +28,9 @@ public class HUDController : MonoBehaviour {
     private GameObject blackRookPrefab;
 
     [SerializeField]
-    private GameObject winnerTextPanel;
+    private GameObject endResultTextPanel;
     [SerializeField]
-    private Text winnerText;
+    private Text endResultText;
     [SerializeField]
     private GameObject restartButton;
 
@@ -39,11 +39,12 @@ public class HUDController : MonoBehaviour {
     private void Start () {
         Events.instance.onPromotionInitiated += onPromotionInitiated;
         Events.instance.onCheckMate += onCheckMate;
+        Events.instance.onDraw += onDraw;
 
         promoteWhitePiecePanel.SetActive (false);
         promoteBlackPiecePanel.SetActive (false);
 
-        winnerTextPanel.SetActive (false);
+        endResultTextPanel.SetActive (false);
         restartButton.SetActive (false);
     }
 
@@ -58,10 +59,18 @@ public class HUDController : MonoBehaviour {
     }
 
     private void onCheckMate (Player winner) {
-        winnerText.text = winner + " has won!";
-        winnerText.color = winner == Player.WHITE ? Color.white : Color.black;
+        showEndResult (winner + " has won!", winner == Player.WHITE ? Color.white : Color.black);
+    }
 
-        winnerTextPanel.SetActive (true);
+    private void onDraw () {
+        showEndResult ("Draw!", Color.black);
+    }
+
+    private void showEndResult (string text, Color color) {
+        endResultText.text = text;
+        endResultText.color = color;
+
+        endResultTextPanel.SetActive (true);
         restartButton.SetActive (true);
     }
 

@@ -17,6 +17,8 @@ public class Events : MonoBehaviour {
 
     public event Action<Player> onCheckMate;
 
+    public event Action onDraw;
+
     public void turnDone (Player playerWhoMadeTurn) {
         if (onTurnDone != null) {
             onTurnDone (playerWhoMadeTurn);
@@ -38,6 +40,12 @@ public class Events : MonoBehaviour {
     public void checkMate (Player winner) {
         if (onCheckMate != null) {
             onCheckMate (winner);
+        }
+    }
+
+    public void draw () {
+        if (onDraw != null) {
+            onDraw ();
         }
     }
 }

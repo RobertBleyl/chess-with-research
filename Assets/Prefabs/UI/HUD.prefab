@@ -65,8 +65,8 @@ MonoBehaviour:
   blackKnightPrefab: {fileID: 6869446378337736709, guid: 9b2228e634afa354faaef212509892d0, type: 3}
   blackBishopPrefab: {fileID: 7203210123583195225, guid: 2538b651016a5904da8a53d8f0a00d18, type: 3}
   blackRookPrefab: {fileID: 7295839973560662766, guid: 6bfb40fe20bc5704fb7a21b64945c1ea, type: 3}
-  winnerTextPanel: {fileID: 6886685834902676756}
-  winnerText: {fileID: 2314365037792483062}
+  endResultTextPanel: {fileID: 6886685834902676756}
+  endResultText: {fileID: 2314365037792483062}
   restartButton: {fileID: 2534052589396384465}
 --- !u!223 &990073626428724997
 Canvas:
@@ -1303,7 +1303,7 @@ GameObject:
   - component: {fileID: 7892543391239428237}
   - component: {fileID: 2314365037792483062}
   m_Layer: 5
-  m_Name: WinnerText
+  m_Name: EndResultText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1382,7 +1382,7 @@ GameObject:
   - component: {fileID: 4151710552055605986}
   - component: {fileID: 2516017263309922992}
   m_Layer: 5
-  m_Name: WinnerTextPanel
+  m_Name: EndResultTextPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
